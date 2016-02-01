@@ -1,0 +1,91 @@
+import random
+
+
+
+def main():
+    DEFAULT_CHIPS = 20
+
+    
+#class of cards, dictionary of cards is here
+class Card(object):
+    card_to_name ={1:"Ace",2:"Two",3:"Three",4:"Four",5:"Five",6:"Six",7:"Seven",8:"Eight",9:"Nine",10:"Ten",11:"Jack",12:"Queen",13:"King"}
+    
+
+    def init_(self,value,suit):
+        self.name = self.card_to_name[value]
+        self.suit = suit
+        self.title = "%s of %s"(self.name, self.suit)
+        self.score = min(value, 10)
+
+
+    def repr_(self):
+        return self.title
+
+#Cards in hand
+class Hand(object):
+    def init_(self_cards):
+        self.hand = cards
+
+#cards are being calculated here to show the value of the cards in players hand
+    def get_scores(self):
+        num_aces = sum(card.name == "Ace" for card in self.hand)
+        score = sum(score for card in self.hand)
+        return[score + i*10 for i in range(num_aces+1)]
+
+    def possible_scores(self):
+        return[s for s in self.scores() if s <= 21]
+
+    def repr_(self):
+        return str(self.hand)
+    
+#Deck of cards are randomly shuffled and in range of 1-14 in suits of Clubs, Diamonds, Hearts, and spades.
+class Deck(object):    
+    def _init_(self,num_decks=1):
+        unshuffled_deck = [Card(card,suit)for card in range(1,14)for suit in ["Clubs","Diamonds","Hearts","Spades"]]
+        self.deck = self.unshuffled_deck*num_decks
+        random.shuffle(self.deck)
+        return str(self, num_decks = 1)
+
+    def deal_card(self):
+        return self.deck.pop()
+
+    def deal_hand(self):
+        return Hand([self.deal_card(), self.deal_card()])
+    
+#Players is give 20 chips, hand, if player ask for another card, bust and score
+class Player(object):
+    def DEFAULT_CHIPS():
+        def _init_(self,name = "Player 1",chips = DEFAULT_CHIPS):
+            self.name = name
+            self.chips = chips
+            self.current_bet = 0
+        
+
+    def new_hand(self,hand):
+        self.hand = hand
+
+    def hit(self, card):
+        self.hand.hand.append(card)
+
+
+    def is_busted(self):
+        return len(self.hand.possible_scores()) == 0
+
+    def scores(self):
+        return self.hand.get_scores() if self.is_busted() else self.hand.possible_scores()
+
+    def repr_(self):
+        player_str = self.name + "(Busted)" if self.is_busted() else self.name
+        return "Player:{}\nChips:{}\nCurrent Bet:{}\nCards:{}\nScore:{}:".format(
+            player_str,self.chips,self.current_bet,self.hand,self.scores())
+
+#if self =="_main_":
+    d = Deck(self)
+    print (d.decks)
+    h = d.deal_hand()
+    p = Player()
+    p.new_hand(h)
+    print( p)
+    p.hit(d.deal_card())
+    print (p)
+    main()
